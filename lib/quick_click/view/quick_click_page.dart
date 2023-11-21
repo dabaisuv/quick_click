@@ -28,6 +28,7 @@ class QuickClickPage extends StatelessWidget {
                 const Padding(padding: EdgeInsets.all(8)),
                 Builder(builder: (context) {
                   var state = context.watch<QuickClickCubit>().state;
+
                   return GestureDetector(
                     onTapDown: (tapDetails) =>
                         context.read<QuickClickCubit>().end(),
@@ -41,22 +42,29 @@ class QuickClickPage extends StatelessWidget {
                   );
                 }),
                 const Padding(padding: EdgeInsets.all(8)),
-                Builder(builder: (context) {
-                  var state = context.watch<QuickClickCubit>().state;
+                FutureBuilder(
+                    future: precacheImage(
+                        const AssetImage('images/labixiaoxin.jfif'), context),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        var state = context.watch<QuickClickCubit>().state;
 
-                  if (state is QuickClickRunning) {
-                    return const Text('准备点击！');
-                  }
-                  return !state.isDisplay
-                      ? ElevatedButton(
-                          style: const ButtonStyle(
-                              fixedSize:
-                                  MaterialStatePropertyAll(Size(200, 50))),
-                          onPressed: () =>
-                              context.read<QuickClickCubit>().start(),
-                          child: const Text('开始'))
-                      : const Padding(padding: EdgeInsets.all(8));
-                }),
+                        if (state is QuickClickRunning) {
+                          return const Text('准备点击！');
+                        }
+                        return !state.isDisplay
+                            ? ElevatedButton(
+                                style: const ButtonStyle(
+                                    fixedSize: MaterialStatePropertyAll(
+                                        Size(200, 50))),
+                                onPressed: () =>
+                                    context.read<QuickClickCubit>().start(),
+                                child: const Text('开始'))
+                            : const Padding(padding: EdgeInsets.all(8));
+                      }
+
+                      return const CircularProgressIndicator.adaptive();
+                    }),
                 const Padding(padding: EdgeInsets.all(8)),
                 const ScoreBoardView()
               ],
