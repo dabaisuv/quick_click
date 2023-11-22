@@ -6,8 +6,10 @@ sealed class QuickClickState {
   final DateTime? startTime;
   final DateTime? endTime;
   final double? reactionTime;
+  final List<double>? reactionTimeList;
   const QuickClickState(
-      {this.reactionTime,
+      {this.reactionTimeList,
+      this.reactionTime,
       this.startTime,
       this.endTime,
       required this.isDisplay});
@@ -16,7 +18,8 @@ sealed class QuickClickState {
 //初始化
 final class QuickClickInitial extends QuickClickState {
   const QuickClickInitial(
-      {super.reactionTime,
+      {super.reactionTimeList,
+      super.reactionTime,
       super.startTime,
       super.endTime,
       required super.isDisplay});
@@ -25,7 +28,8 @@ final class QuickClickInitial extends QuickClickState {
 //开始计时
 final class QuickClickRunning extends QuickClickState {
   const QuickClickRunning(
-      {super.reactionTime,
+      {super.reactionTimeList,
+      super.reactionTime,
       super.startTime,
       super.endTime,
       required super.isDisplay});
@@ -34,7 +38,8 @@ final class QuickClickRunning extends QuickClickState {
 //显示图片
 final class QuickClickDisplay extends QuickClickState {
   const QuickClickDisplay(
-      {super.reactionTime,
+      {super.reactionTimeList,
+      super.reactionTime,
       super.startTime,
       super.endTime,
       required super.isDisplay});
@@ -43,7 +48,8 @@ final class QuickClickDisplay extends QuickClickState {
 //结束计时
 final class QuickClickComplete extends QuickClickState {
   const QuickClickComplete(
-      {super.reactionTime,
+      {super.reactionTimeList,
+      super.reactionTime,
       super.startTime,
       super.endTime,
       required super.isDisplay});

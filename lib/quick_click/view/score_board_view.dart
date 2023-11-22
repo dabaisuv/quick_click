@@ -10,12 +10,26 @@ class ScoreBoardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(builder: (context) {
       var state = context.watch<QuickClickCubit>().state;
-      return state is QuickClickComplete
-          ? Text(
-              '成绩：${state.reactionTime}毫秒！',
-              style: TextStyle(fontSize: 30),
-            )
-          : Container();
+      return state.reactionTimeList != null
+          ? Column(children: [
+              Text(
+                  '平均成绩:${(state.reactionTimeList!.reduce((value, element) => value + element) / state.reactionTimeList!.length).toStringAsFixed(3)}毫秒',
+                  style: const TextStyle(
+                      fontSize: 25, color: Color.fromARGB(255, 127, 36, 29))),
+              ...state.reactionTimeList!
+                  .asMap()
+                  .map((k, e) => MapEntry(
+                      k,
+                      Text(
+                        '第${k + 1}次成绩：$e毫秒！',
+                        style: const TextStyle(fontSize: 30),
+                      )))
+                  .values
+                  .toList()
+                  .reversed
+                  .toList()
+            ])
+          : const Text('暂无成绩，请点击开始', style: TextStyle(fontSize: 25));
     });
   }
 }
