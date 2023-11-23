@@ -31,7 +31,7 @@ class QuickClickPage extends StatelessWidget {
                     var state = context.watch<QuickClickCubit>().state;
 
                     return Card(
-                      elevation: 5,
+                      elevation: 10,
                       child: GestureDetector(
                         onTapDown: (tapDetails) =>
                             context.read<QuickClickCubit>().end(),
@@ -70,7 +70,7 @@ class QuickClickPage extends StatelessWidget {
                                   ? ElevatedButton(
                                       style: const ButtonStyle(
                                           elevation:
-                                              MaterialStatePropertyAll(5),
+                                              MaterialStatePropertyAll(10),
                                           fixedSize: MaterialStatePropertyAll(
                                               Size(150, 50))),
                                       onPressed: () => context
@@ -90,7 +90,7 @@ class QuickClickPage extends StatelessWidget {
                       Builder(builder: (context) {
                         return ElevatedButton(
                             style: const ButtonStyle(
-                                elevation: MaterialStatePropertyAll(5),
+                                elevation: MaterialStatePropertyAll(10),
                                 fixedSize:
                                     MaterialStatePropertyAll(Size(150, 50))),
                             onPressed: () =>
