@@ -1,56 +1,44 @@
 part of 'quick_click_cubit.dart';
 
+enum QuickClickStatus { initial, running, display, complete }
+
 @immutable
-sealed class QuickClickState {
+final class QuickClickState extends Equatable {
+  final QuickClickStatus status;
   final bool isDisplay;
   final DateTime? startTime;
   final DateTime? endTime;
   final double? reactionTime;
   final List<double>? reactionTimeList;
+
   const QuickClickState(
-      {this.reactionTimeList,
+      {this.status = QuickClickStatus.initial,
+      this.reactionTimeList,
       this.reactionTime,
       this.startTime,
       this.endTime,
-      required this.isDisplay});
-}
+      this.isDisplay = false});
 
-//初始化
-final class QuickClickInitial extends QuickClickState {
-  const QuickClickInitial(
-      {super.reactionTimeList,
-      super.reactionTime,
-      super.startTime,
-      super.endTime,
-      required super.isDisplay});
-}
+  QuickClickState copyWith({
+    QuickClickStatus? status,
+    bool? isDisplay,
+    DateTime? startTime,
+    DateTime? endTime,
+    double? reactionTime,
+    List<double>? Function()? reactionTimeList,
+  }) {
+    return QuickClickState(
+        status: status ?? this.status,
+        isDisplay: isDisplay ?? this.isDisplay,
+        startTime: startTime ?? this.startTime,
+        endTime: endTime ?? this.endTime,
+        reactionTime: reactionTime ?? this.reactionTime,
+        reactionTimeList: reactionTimeList != null
+            ? reactionTimeList()
+            : this.reactionTimeList);
+  }
 
-//开始计时
-final class QuickClickRunning extends QuickClickState {
-  const QuickClickRunning(
-      {super.reactionTimeList,
-      super.reactionTime,
-      super.startTime,
-      super.endTime,
-      required super.isDisplay});
-}
-
-//显示图片
-final class QuickClickDisplay extends QuickClickState {
-  const QuickClickDisplay(
-      {super.reactionTimeList,
-      super.reactionTime,
-      super.startTime,
-      super.endTime,
-      required super.isDisplay});
-}
-
-//结束计时
-final class QuickClickComplete extends QuickClickState {
-  const QuickClickComplete(
-      {super.reactionTimeList,
-      super.reactionTime,
-      super.startTime,
-      super.endTime,
-      required super.isDisplay});
+  @override
+  List<Object?> get props =>
+      [isDisplay, startTime, endTime, reactionTime, reactionTimeList, status];
 }

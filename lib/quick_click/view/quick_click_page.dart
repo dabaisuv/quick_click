@@ -57,7 +57,7 @@ class QuickClickPage extends StatelessWidget {
                               var state =
                                   context.watch<QuickClickCubit>().state;
 
-                              if (state is QuickClickRunning) {
+                              if (state.status == QuickClickStatus.running) {
                                 return const Text('准备点击！');
                               }
                               return !state.isDisplay
@@ -88,7 +88,7 @@ class QuickClickPage extends StatelessWidget {
                       })
                     ],
                   ),
-                  Padding(padding: EdgeInsets.all(8)),
+                  const Padding(padding: EdgeInsets.all(8)),
                   const ScoreBoardView()
                 ],
               ),
