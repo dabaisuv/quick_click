@@ -30,18 +30,19 @@ class QuickClickPage extends StatelessWidget {
                   Builder(builder: (context) {
                     var state = context.watch<QuickClickCubit>().state;
 
-                    return GestureDetector(
-                      onTapDown: (tapDetails) =>
-                          context.read<QuickClickCubit>().end(),
-                      child: Container(
-                          width: 324,
-                          height: 324,
-                          color: Colors.grey,
-                          child: state.isDisplay
-                              ? Image.asset(
-                                  'images/labixiaoxin.jfif',
-                                )
-                              : null),
+                    return Card(
+                      elevation: 5,
+                      child: GestureDetector(
+                        onTapDown: (tapDetails) =>
+                            context.read<QuickClickCubit>().end(),
+                        child: Container(
+                            width: 324,
+                            height: 324,
+                            color: Colors.grey,
+                            child: state.isDisplay
+                                ? Image.asset('images/labixiaoxin.jfif')
+                                : null),
+                      ),
                     );
                   }),
                   const Padding(padding: EdgeInsets.all(8)),
@@ -68,6 +69,8 @@ class QuickClickPage extends StatelessWidget {
                               return !state.isDisplay
                                   ? ElevatedButton(
                                       style: const ButtonStyle(
+                                          elevation:
+                                              MaterialStatePropertyAll(5),
                                           fixedSize: MaterialStatePropertyAll(
                                               Size(150, 50))),
                                       onPressed: () => context
@@ -87,12 +90,15 @@ class QuickClickPage extends StatelessWidget {
                       Builder(builder: (context) {
                         return ElevatedButton(
                             style: const ButtonStyle(
+                                elevation: MaterialStatePropertyAll(5),
                                 fixedSize:
                                     MaterialStatePropertyAll(Size(150, 50))),
                             onPressed: () =>
                                 context.read<QuickClickCubit>().clear(),
                             child: const Text('清除成绩',
-                                style: TextStyle(fontSize: 20)));
+                                style: TextStyle(
+                                  fontSize: 20,
+                                )));
                       })
                     ],
                   ),
