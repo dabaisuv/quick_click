@@ -58,7 +58,12 @@ class QuickClickPage extends StatelessWidget {
                                   context.watch<QuickClickCubit>().state;
 
                               if (state.status == QuickClickStatus.running) {
-                                return const Text('准备点击！');
+                                return Container(
+                                  width: 150,
+                                  height: 50,
+                                  alignment: Alignment.center,
+                                  child: const Text('准备点击！'),
+                                );
                               }
                               return !state.isDisplay
                                   ? ElevatedButton(
@@ -70,7 +75,10 @@ class QuickClickPage extends StatelessWidget {
                                           .start(),
                                       child: const Text('开始',
                                           style: TextStyle(fontSize: 20)))
-                                  : const Padding(padding: EdgeInsets.all(8));
+                                  : Container(
+                                      width: 150,
+                                      height: 50,
+                                    );
                             }
 
                             return const CircularProgressIndicator.adaptive();
@@ -89,7 +97,8 @@ class QuickClickPage extends StatelessWidget {
                     ],
                   ),
                   const Padding(padding: EdgeInsets.all(8)),
-                  const ScoreBoardView()
+                  const SizedBox(
+                      width: 300, height: 200, child: ScoreBoardView())
                 ],
               ),
             ),
